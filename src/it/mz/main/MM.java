@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 /**
  * @author M4UR0Z
- * @version 1.0 - 202410.311121
+ * @version 1.0 - 202411.29110925
  */
 public class MM {
 
@@ -36,6 +36,11 @@ public class MM {
             };
 
             new Timer(true).scheduleAtFixedRate(task, 1000, (1000 * 60 * 2) );
+            if (args.length == 1) {
+                System.out.println(args[0] + " Started.");
+            } else {
+                System.out.println("MM Started.");
+            }
         }
         catch(Exception ex) {
             System.err.println("Error: " + ex.getMessage());
