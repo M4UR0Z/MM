@@ -35,7 +35,7 @@ public class MM {
                 }
             };
 
-            new Timer(true).scheduleAtFixedRate(task, 1000, (1000 * 60 * 2) );
+            new Timer().scheduleAtFixedRate(task, 1000, (1000 * 60 * 2) );
             if (args.length == 1) {
                 System.out.println(args[0] + " Started.");
             } else {
