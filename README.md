@@ -15,7 +15,7 @@ For example, launching MM with the following arguments:
 
 opens a terminal similar to this:
 
-<img src="./apprunning.png" alt="MM running"/>
+<img src="./apprunning.png" alt="MM running" width="200"/>
 
 <br>
 
