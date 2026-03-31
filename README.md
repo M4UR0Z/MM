@@ -22,8 +22,6 @@ opens a terminal similar to this:
 Java Mouse Mover runs with any JRE/JDK 11 or greater 
 
 >*Note*: 
-Currently, MM move the mouse horizontally every 3 minutes.
-
-This feature is, for now, embedded in program itself.
-
-May be future version will allow further parameter to customize the MM behaviour
+>Currently, MM move the mouse horizontally every 3 minutes.
+>This feature is, for now, embedded in program itself.
+>May be future version will allow further parameter to customize the MM behaviour
