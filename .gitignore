@@ -1,3 +1,6 @@
 ﻿nbproject/private
 .idea
 MM.iml
+nbproject
+build/built-jar.properties
+build
