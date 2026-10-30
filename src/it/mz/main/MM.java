@@ -3,18 +3,20 @@ package it.mz.main;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * @author M4UR0Z
- * @version 1.0 - 202604.091040
+ * @version 1.0 - 202610.271430
  */
 public class MM {
     
-    private static final String VER = "ver. 1.0 - 202604.091040";
+    private static final String VER = "ver. 1.0 - 202610.271430";
     private static final String DEFAULT_INTERVAL = "180"; 
     private static final String DEFAULT_MSG = "MM Started"; 
+    private static final String DEFAULT_CLICK_AFTER_MOVE = "NO"; 
     
 
     /**
@@ -27,7 +29,7 @@ public class MM {
 
         try {
             final Robot rbt = new Robot();
-
+            final String doClick = paramValues[2];
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
@@ -41,6 +43,13 @@ public class MM {
                         Thread.currentThread().interrupt();
                     }
                     rbt.mouseMove(currentPoint.x, currentPoint.y);
+                    
+                    if("YES".equalsIgnoreCase(doClick) ) {
+                        rbt.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                        rbt.delay(50);
+                        // Simula il rilascio del tasto sinistro
+                        rbt.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                    }
                 }
             };
 
@@ -78,6 +87,9 @@ public class MM {
         System.out.println("-t:<second>");
         System.out.println("    Waits <seconds> between each mouse movement.");
         System.out.println("");
+        System.out.println("-c");
+        System.out.println("    Do a click after a mouse move. Useful to click periodically in a point where you left the mouse pointer :).");
+        System.out.println("");
         System.out.println("-h|-H|-help|--help|...");
         System.out.println("    Shows (this) usage and exit.");
         
@@ -86,7 +98,7 @@ public class MM {
     }
 
     private static String[] parseParameters(String[] params) {
-        String[] processedParams = new String[]{DEFAULT_MSG, DEFAULT_INTERVAL};
+        String[] processedParams = new String[]{DEFAULT_MSG, DEFAULT_INTERVAL, DEFAULT_CLICK_AFTER_MOVE};
         
         if(params.length == 0) {
             return processedParams;
@@ -100,6 +112,9 @@ public class MM {
             if(param.startsWith("-t:")) {
                 processedParams[1] = param.substring(3);
             }
+            if(param.equals("-c")) {
+                processedParams[2] = "YES";
+            }
             if(param.equals("-h") || param.equals("-H") || param.contains("help") ) {
                 usage();
             }
@@ -107,7 +122,7 @@ public class MM {
         
         // ----------------- verifying parsed params... -----------------
         if(processedParams[0].isBlank() ) {
-            System.err.println("Wrong value for -m option. Using default.");
+            System.err.printf("Wrong value for -m option. Using default [%s].", DEFAULT_MSG);
             processedParams[0] = DEFAULT_MSG;
         }
         
@@ -115,7 +130,7 @@ public class MM {
             Integer.valueOf(processedParams[1]);
         }
         catch(NumberFormatException nfe) {
-            System.err.println("Wrong value for -t option. Using default.");
+            System.err.printf("Wrong value for -t option. Using default [%s].", DEFAULT_INTERVAL);
             processedParams[1] = DEFAULT_INTERVAL;
         }
         // ----------------------------------------------------------------
